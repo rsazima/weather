@@ -4,6 +4,8 @@
 
 package org.bom.weather
 
+import java.time.OffsetDateTime
+
 import org.scalatest._
 
 class LocationSpec extends FlatSpec with Matchers with BeforeAndAfter
@@ -40,6 +42,17 @@ class LocationSpec extends FlatSpec with Matchers with BeforeAndAfter
 
   "A location" should "provide its current weather data" in {
     cpq.getCurrWeather shouldBe a [WeatherData]
+  }
+
+  "A location" should "simulate weather data for X repetitions" in {
+    cpq.simulate()(10) shouldBe a [WeatherSeries]
+  }
+
+  "A location" should "simulate weather data for a period P" in {
+    val from = OffsetDateTime.now()
+    val to   = from.plusHours(10)
+    cpq.simulatePeriod(from)(to)(java.time.temporal.ChronoUnit.HOURS) shouldBe
+      a [WeatherSeries]
   }
 
 }
