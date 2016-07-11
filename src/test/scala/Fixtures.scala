@@ -12,7 +12,8 @@ trait LocationFixtures {
   val cpq = new Location("CPQ", "Brazil/Brasilia", 26.5, -23, -47, 700)
 
   val weatherNetwork = Map[String, Location](
-      ptn.code -> ptn
+      dse.code -> dse
+    , ptn.code -> ptn
     , cpq.code -> cpq
 //    , .code ->
 //    , .code ->

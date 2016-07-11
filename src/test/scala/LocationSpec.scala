@@ -38,4 +38,8 @@ class LocationSpec extends FlatSpec with Matchers with BeforeAndAfter
     cpq.pressure.round should be (917)
   }
 
+  "A location" should "provide its current weather data" in {
+    cpq.getCurrWeather shouldBe a [WeatherData]
+  }
+
 }
