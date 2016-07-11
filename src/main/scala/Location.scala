@@ -25,6 +25,8 @@ class Location(val code: String,
   extends Climate(baseTemp, latitude, longitude, altitude)
   with WeatherInfo
 {
+  type WeatherSeries = Vector[WeatherData]
+
   def getCurrWeather: WeatherData = WeatherData(
     this,
     OffsetDateTime.now(ZoneId.of(zoneId)),
