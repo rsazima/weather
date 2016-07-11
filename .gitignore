@@ -9,10 +9,10 @@ src_managed/
 project/boot/
 project/plugins/project/
 
-# IntelliJ specific
-.idea
+# Ignore IntelliJ Idea project files
+/.idea/
+/*.iml
 .idea_modules
-*.iml
 *.eml
 
 # Scala-IDE specific
