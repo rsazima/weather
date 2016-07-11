@@ -14,6 +14,8 @@
 
 package org.bom.weather
 
+import java.time.{ZoneId, OffsetDateTime}
+
 class Location(val code: String,
                val zoneId: String,
                    baseTemp: Double,
@@ -21,3 +23,14 @@ class Location(val code: String,
                val longitude: Double,
                val altitude: Int)
   extends Climate(baseTemp, latitude, longitude, altitude)
+  with WeatherInfo
+{
+  def getCurrWeather: WeatherData = WeatherData(
+    this,
+    OffsetDateTime.now(ZoneId.of(zoneId)),
+    "Sunny", // FALTA: generateCondition()
+    temperature,
+    pressure,
+    75 // FALTA: generateHumidity()
+  )
+}
