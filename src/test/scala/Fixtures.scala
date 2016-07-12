@@ -4,6 +4,8 @@
 
 package org.bom.weather
 
+import java.time.OffsetDateTime
+
 trait LocationFixtures {
 
   type WeatherSeries = Vector[WeatherData]
@@ -26,5 +28,9 @@ trait LocationFixtures {
 //    , .code ->
 //    , .code ->
   )
+
+  // Default simulation period
+  val from = OffsetDateTime.now()
+  val to   = from.plusHours(10)
 
 }

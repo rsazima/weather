@@ -14,6 +14,8 @@
 
 package org.bom.weather
 
+import java.time.temporal.ChronoUnit
+import java.time.temporal.ChronoUnit.HOURS
 import java.time.{ZoneId, OffsetDateTime}
 
 class Location(val code: String,
@@ -23,11 +25,9 @@ class Location(val code: String,
                val longitude: Double,
                val altitude: Int)
   extends Climate(baseTemp, latitude, longitude, altitude)
-  with WeatherInfo
+  with WeatherInfo with Simulated
 {
-  type WeatherSeries = Vector[WeatherData]
-
-  def getCurrWeather: WeatherData = WeatherData(
+  def currWeather: WeatherData = WeatherData(
     this,
     OffsetDateTime.now(ZoneId.of(zoneId)),
     "Sunny", // FALTA: generateCondition()
@@ -35,4 +35,27 @@ class Location(val code: String,
     pressure,
     75 // FALTA: generateHumidity()
   )
+
+  def simulate(from: OffsetDateTime = OffsetDateTime.now(ZoneId.of(zoneId)))
+              (repetitions: Int)
+              (step: ChronoUnit = HOURS): Vector[WeatherData] = {
+    def _simulate(from: OffsetDateTime,
+                  repetitions: Int,
+                  step: ChronoUnit,
+                  acc: Vector[WeatherData]): Vector[WeatherData] = {
+      if (repetitions == 0) acc else
+        _simulate(from.plus(1, step), repetitions - 1, step, currWeather +: acc)
+    }
+    // Start simulation with empty result series
+    if (repetitions < 0) Vector() else _simulate(from, repetitions, step, Vector())
+  }
+
+  override def simulatePeriod
+  (from: OffsetDateTime = OffsetDateTime.now(ZoneId.of(zoneId)))
+  (to: OffsetDateTime)
+  (step: ChronoUnit = HOURS): Vector[WeatherData] =
+  {
+    simulate(from)(step.between(from, to).toInt)(step)
+  }
+
 }

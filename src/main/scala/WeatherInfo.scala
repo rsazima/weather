@@ -9,7 +9,7 @@ import java.time.OffsetDateTime
 
 // FALTA: Ver se realmente precisa dessa trait
 trait WeatherInfo {
-  def getCurrWeather: WeatherData
+  def currWeather: WeatherData
 }
 
 case class WeatherData(location: Location,
@@ -21,5 +21,5 @@ case class WeatherData(location: Location,
 {
   override def toString: String =
     s"${location.code}|${location.latitude},${location.longitude}|" +
-      s"${localTime}|${condition}|${temperature}|${pressure}|${humidity}"
+      f"$localTime|$condition|$temperature%1.1f|$pressure%1.1f|$humidity"
 }
