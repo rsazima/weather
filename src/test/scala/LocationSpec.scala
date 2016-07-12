@@ -45,11 +45,13 @@ class LocationSpec extends FlatSpec with Matchers with BeforeAndAfter
 
   "A location" should "simulate a series of weather data for X repetitions" in {
     cpq.simulate()(10)() shouldBe a [WeatherSeries]
+    cpq.simulate()(0)().size should be (0)
     cpq.simulate()(10)().size should be (10)
   }
 
   "A location" should "simulate a series of weather data for a period P" in {
     cpq.simulatePeriod(from)(to)(HOURS) shouldBe a [WeatherSeries]
+    cpq.simulatePeriod(to)(from)(HOURS).size should be (0)
   }
 
 }

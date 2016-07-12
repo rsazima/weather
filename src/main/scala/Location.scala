@@ -27,6 +27,10 @@ class Location(val code: String,
   extends Climate(baseTemp, latitude, longitude, altitude)
   with WeatherInfo with Simulated
 {
+  def season(dateTime: OffsetDateTime = OffsetDateTime.now()): String = {
+    ""
+  }
+
   def currWeather: WeatherData = WeatherData(
     this,
     OffsetDateTime.now(ZoneId.of(zoneId)),
