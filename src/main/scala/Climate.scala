@@ -2,7 +2,8 @@
  * Climate describes an extremely simplified climate model
  *
  * Parameters:
- *  - baseTemp: base temperature at the equator (latitude 0)
+ *  - baseTemp: base mean temperature
+ *  - avgTempDelta: mean temperature range
  *  - latitude: degrees with decimal notation
  *  - longitude: degrees with decimal notation
  *  - altitude: in meters from sea level
@@ -25,8 +26,6 @@ abstract class Climate(baseTemp: Double,
   def temperature(dateTime: OffsetDateTime): Double = {
     val daytimeTempDelta = (2 * avgTempDelta / 3) * daytimeTempFactor(dateTime)
 
-    //(latTempDelta(AltTempDelta(baseTemp)) * season(dateTime).seasonTempFactor) +
-    //  daytimeTempDelta
     ((latTempDelta(AltTempDelta(baseTemp)) + baseTemp *
       season(dateTime).seasonTempFactor) / 2) + daytimeTempDelta
   }

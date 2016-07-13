@@ -22,6 +22,7 @@ case class WeatherData(location: Location,
     } else condition._1
 
     s"${location.code}|${location.latitude},${location.longitude}|" +
-      f"${localTime.truncatedTo(SECONDS).atZoneSameInstant(ZoneId.of("Z"))}|$descriptor|$temperature%1.1f|$pressure%1.1f|$humidity"
+      f"${localTime.truncatedTo(SECONDS).atZoneSameInstant(ZoneId.of("Z"))}|" +
+      f"$descriptor|$temperature%1.1f|$pressure%1.1f|$humidity"
   }
 }

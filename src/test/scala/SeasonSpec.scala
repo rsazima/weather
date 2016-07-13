@@ -79,9 +79,9 @@ class SeasonSpec extends FlatSpec with Matchers with LocationFixtures
   }
 
   "At the same time, in Pontianak and the Dead Sea" should "be SUMMER" in {
-    Season(ptn.latitude, july12SYD.atZoneSameInstant(ZoneId.of(ptn.zoneId))
+    Season(pnk.latitude, july12SYD.atZoneSameInstant(ZoneId.of(pnk.zoneId))
       .toOffsetDateTime) should be (SUMMER)
-    Season(dse.latitude, july12SYD.atZoneSameInstant(ZoneId.of(dse.zoneId))
+    Season(amm.latitude, july12SYD.atZoneSameInstant(ZoneId.of(amm.zoneId))
       .toOffsetDateTime) should be (SUMMER)
   }
 

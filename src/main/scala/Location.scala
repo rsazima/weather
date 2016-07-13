@@ -11,7 +11,6 @@
  *  - latitude: degrees with decimal notation
  *  - longitude: degrees with decimal notation
  *  - altitude: in meters from sea level
-import org.bom.weather._
  */
 
 package org.bom.weather
@@ -79,7 +78,7 @@ class Location(val code: String,
       dateTime,
       currCondition,
       temperature(dateTime), // Improvements: condition to influence temperature
-      pressure,              // Improvements: condition to influence temperature
+      pressure,              // Improvements: condition to influence pressure
       humidity(currCondition)// Improvements: consider time, season & temperature
     )
   }
