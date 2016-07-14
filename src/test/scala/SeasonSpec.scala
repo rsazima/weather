@@ -2,10 +2,11 @@
  * FlatSpec for Season
  */
 
+package org.bom.weather
+
 import org.scalatest._
 import java.time.ZoneId
 import org.bom.weather.seasons._
-import org.bom.weather.LocationFixtures
 
 class SeasonSpec extends FlatSpec with Matchers with LocationFixtures
 {

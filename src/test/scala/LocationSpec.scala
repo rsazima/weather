@@ -168,7 +168,7 @@ class LocationSpec extends FlatSpec with Matchers with BeforeAndAfter
     infos(1).split(',').map(_.toDouble) should be (Array(syd.latitude, syd.longitude))
     Duration.between(OffsetDateTime.parse(infos(2)), weather.localTime).getNano should
       be < 1000000000
-    List(infos(3)) should contain oneOf ("Clear", "Clouds", "Rain")
+    List(infos(3)) should contain oneOf ("Clear", "Sun", "Clouds", "Rain", "Snow")
     (infos(4).toDouble - weather.temperature).abs should be < 0.1
     (infos(5).toDouble - weather.pressure).abs should be < 0.1
     infos(6).toInt should be (weather.humidity)

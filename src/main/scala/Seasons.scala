@@ -42,7 +42,7 @@ case object SPRING extends Season {
   val end =   Map(Hemisphere.NORTH -> MonthDay.of(6,1),
                   Hemisphere.SOUTH -> MonthDay.of(12,1))
   val daytimeOffsetFactor = -1.0
-  val seasonTempFactor = 1.1
+  val seasonTempFactor = 1.2
 }
 
 case object SUMMER extends Season {
@@ -51,7 +51,7 @@ case object SUMMER extends Season {
   val end =   Map(Hemisphere.NORTH -> MonthDay.of(9,1),
                   Hemisphere.SOUTH -> MonthDay.of(3,1))
   val daytimeOffsetFactor = -2.0
-  val seasonTempFactor = 1.3
+  val seasonTempFactor = 1.45
 }
 
 case object AUTUMN extends Season {
@@ -60,7 +60,7 @@ case object AUTUMN extends Season {
   val end =   Map(Hemisphere.NORTH -> MonthDay.of(12,1),
                   Hemisphere.SOUTH -> MonthDay.of(6,1))
   val daytimeOffsetFactor = 1.0
-  val seasonTempFactor = 0.9
+  val seasonTempFactor = 0.8
 }
 
 case object WINTER extends Season {
@@ -69,5 +69,5 @@ case object WINTER extends Season {
   val end =   Map(Hemisphere.NORTH -> MonthDay.of(3,1),
                   Hemisphere.SOUTH -> MonthDay.of(9,1))
   val daytimeOffsetFactor = 2.0
-  val seasonTempFactor = 0.7
+  val seasonTempFactor = 0.65
 }

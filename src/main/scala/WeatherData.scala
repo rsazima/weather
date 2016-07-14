@@ -25,4 +25,12 @@ case class WeatherData(location: Location,
       f"${localTime.truncatedTo(SECONDS).atZoneSameInstant(ZoneId.of("Z"))}|" +
       f"$descriptor|$temperature%1.1f|$pressure%1.1f|$humidity"
   }
+
+  def getWeather: ((String, Duration), Double, Double, Int) =
+    (
+      this.condition,
+      this.temperature,
+      this.pressure,
+      this.humidity
+    )
 }

@@ -28,10 +28,10 @@ trait LocationFixtures {
   // OR we can use an artificially narrower avgTempDelta. Opposite for Dead Sea.
   val mow = new Location("MOW", "Europe/Moscow", 12.0, 8.0, 55.45, 37.37, 151)
   val cgn = new Location("CGN", "Europe/Berlin", 15.0, 9.0, 50.56, 6.57, 58)
-  val amm = new Location("AMM", "Asia/Amman", 26.0, 12.0, 31.56, 35.47, -423)
+  val amm = new Location("AMM", "Asia/Amman", 25.0, 12.0, 31.56, 35.47, -423)
   val mia = new Location("MIA", "America/New_York", 21.0, 15.0, 25.46, -80.12, 2)
-  val pnk = new Location("PNK", "Asia/Pontianak", 24.0, 7.0, 0.0, 109.2, 0)
-  val rec = new Location("REC", "America/Recife", 24.0, 7.5, -8.3, -34.54, 0)
+  val pnk = new Location("PNK", "Asia/Pontianak", 22.0, 7.0, 0.0, 109.2, 0)
+  val rec = new Location("REC", "America/Recife", 25.0, 7.5, -8.3, -34.54, 0)
   val lpb = new Location("LPB", "America/La_Paz", 15.0, 15.0, -16.3, -68.09, 3640)
   val vcp = new Location("VCP", "America/Sao_Paulo", 22.0, 12.0, -22.54, -47.03, 700)
   val syd = new Location("SYD", "Australia/Sydney", 20.0, 11.0, -33.51, 151.12, 19)
