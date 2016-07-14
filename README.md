@@ -32,11 +32,12 @@ weather data:
 - Pressure varies with altitude
 - Condition (sun/clouds/rain/etc) has very simple rules and a bit of randomness
 - Humidity varies with the current condition
+- Limited topography extending the base Location class (example: desert)
 
 What is NOT considered:
 
 - Prevailing winds, air masses, fronts, etc
-- Topography, continentality, most astronomical variation and other complex phenomena
+- Continentality, most astronomical variation and other complex phenomena
 - Probabilities
 - Actual historical weather data
 
