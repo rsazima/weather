@@ -24,10 +24,10 @@ abstract class Climate(baseTemp: Double,
   // Temperature is influenced by angle of incidence (lat & season) of sunrays -
   // concentration in an area - rather than hours of light and distance from sun
   def temperature(dateTime: OffsetDateTime): Double = {
-    val daytimeTempDelta = (2 * avgTempDelta / 3) * daytimeTempFactor(dateTime)
+    val daytimeDelta = (2 * avgTempDelta / 3) * daytimeTempFactor(dateTime)
 
     ((latTempDelta(AltTempDelta(baseTemp)) + baseTemp *
-      season(dateTime).seasonTempFactor) / 2) + daytimeTempDelta
+      season(dateTime).seasonTempFactor) / 2) + daytimeDelta
   }
 
   def pressure: Double = 1013.25 * math.exp(altitude / -7000.0) // p0 * e-(h/h0)

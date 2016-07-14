@@ -199,7 +199,7 @@ class LocationSpec extends FlatSpec with Matchers with BeforeAndAfter
 
   "A large scale simulation" should "occur in parallel" in {
     weatherNetwork.par.mapValues(_.simulate()(10)()).toList.flatMap(_._2).size should
-      be (100)
+      be (weatherNetwork.size * 10)
   }
 
 }

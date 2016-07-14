@@ -15,9 +15,9 @@
 
 package org.bom.weather
 
+import java.time.{Duration, ZoneId, OffsetDateTime}
 import java.time.temporal.ChronoUnit
 import java.time.temporal.ChronoUnit.HOURS
-import java.time.{Duration, ZoneId, OffsetDateTime, LocalTime}
 import org.bom.weather.seasons._
 import scala.util.Random
 
@@ -84,6 +84,8 @@ class Location(val code: String,
   }
 
   /** Simulation */
+  // Vector default immutable collection; List fits recursive fun, but not much gain
+  // http://docs.scala-lang.org/overviews/collections/performance-characteristics.html
   def simulate(from: OffsetDateTime = OffsetDateTime.now(ZoneId.of(zoneId)))
               (repetitions: Int)
               (step: ChronoUnit = HOURS): Vector[WeatherData] = {

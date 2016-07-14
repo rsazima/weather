@@ -3,21 +3,22 @@
  */
 
 import java.time.{Duration, OffsetDateTime}
-import org.bom.weather.{WeatherData, Location}
+import org.bom.weather._
 
 object WeatherChannel extends App {
   def date(str: String) = OffsetDateTime.parse(str)
 
-  val jan16MOW = date("2016-01-01T00:00:01+03:00")
-  val jan16CGN = date("2016-01-01T00:00:01+01:00")
-  val jan16AMM = date("2016-01-01T00:00:01+02:00")
-  val jan16MIA = date("2016-01-01T00:00:01-05:00")
-  val jan16PNK = date("2016-01-01T00:00:01+07:00")
-  val jan16REC = date("2016-01-01T00:00:01-03:00")
-  val jan16LPB = date("2016-01-01T00:00:01-04:00")
-  val jan16VCP = date("2016-01-01T00:00:01-03:00")
-  val jan16SYD = date("2016-01-01T00:00:01+10:00")
-  val jan16CHC = date("2016-01-01T00:00:01+12:00")
+  val dec25MOW = date("2015-12-25T00:00:01+03:00")
+  val dec25CGN = date("2015-12-25T00:00:01+01:00")
+  val dec25AMM = date("2015-12-25T00:00:01+02:00")
+  val dec25MIA = date("2015-12-25T00:00:01-05:00")
+  val dec25PNK = date("2015-12-25T00:00:01+07:00")
+  val dec25REC = date("2015-12-25T00:00:01-03:00")
+  val dec25LPB = date("2015-12-25T00:00:01-04:00")
+  val dec25VCP = date("2015-12-25T00:00:01-03:00")
+  val dec25SYD = date("2015-12-25T00:00:01+10:00")
+  val dec25CHC = date("2015-12-25T00:00:01+12:00")
+  val dec25MHV = date("2015-12-25T00:00:01-08:00")
 
   val mow = new Location("MOW", "Europe/Moscow", 12.0, 8.0, 55.45, 37.37, 151)
   val cgn = new Location("CGN", "Europe/Berlin", 15.0, 9.0, 50.56, 6.57, 58)
@@ -29,18 +30,20 @@ object WeatherChannel extends App {
   val vcp = new Location("VCP", "America/Sao_Paulo", 22.0, 12.0, -22.54, -47.03, 700)
   val syd = new Location("SYD", "Australia/Sydney", 20.0, 11.0, -33.51, 151.12, 19)
   val chc = new Location("CHC", "Pacific/Auckland", 14.0, 11.0, -43.31, 172.37, 6)
+  val mhv = Desert("MHV", "America/Los_Angeles", 11.0, 12.0, 35.00, -115.28, 100)
 
   val weatherNetwork = Map[String, (Location, OffsetDateTime)](
-      mow.code -> (mow, jan16MOW)
-    , cgn.code -> (cgn, jan16CGN)
-    , amm.code -> (amm, jan16AMM)
-    , mia.code -> (mia, jan16MIA)
-    , pnk.code -> (pnk, jan16PNK)
-    , rec.code -> (rec, jan16REC)
-    , lpb.code -> (lpb, jan16LPB)
-    , vcp.code -> (vcp, jan16VCP)
-    , syd.code -> (syd, jan16SYD)
-    , chc.code -> (chc, jan16CHC)
+      mow.code -> (mow, dec25MOW)
+    , cgn.code -> (cgn, dec25CGN)
+    , amm.code -> (amm, dec25AMM)
+    , mia.code -> (mia, dec25MIA)
+    , pnk.code -> (pnk, dec25PNK)
+    , rec.code -> (rec, dec25REC)
+    , lpb.code -> (lpb, dec25LPB)
+    , vcp.code -> (vcp, dec25VCP)
+    , syd.code -> (syd, dec25SYD)
+    , chc.code -> (chc, dec25CHC)
+    , mhv.code -> (mhv, dec25MHV)
   )
 
   def avgWeather(data: Vector[WeatherData]) = {
@@ -68,7 +71,7 @@ object WeatherChannel extends App {
     dailySamples.map(transf(_))
   }
 
-  val days = 10
+  val days = 360
 
   val hourlyData =
     weatherNetwork.par.mapValues(locDt => locDt._1.simulate(locDt._2)(days*24)())
@@ -77,24 +80,16 @@ object WeatherChannel extends App {
     processHourlyData[(String, Double, Double, Int)](_, 24, avgWeather(_)))
 
   dailyAvgs.toMap.map { dailyAvgs =>
-    println(s"JANUARY daily weather for: ${dailyAvgs._1} (${dailyAvgs._2.size} days)\n" +
-            s"AvgTemp\t| Press  \t| Hum\t| Cond\n" +
-    dailyAvgs._2.map(dw => f"${dw._2}%1.1f   \t| ${dw._3}%1.1f \t| ${dw._4}\t| ${dw._1}\n").mkString)
+    val monthlyAvgs = dailyAvgs._2.grouped(30).map(x => avgWeather(x.map(tp =>
+      WeatherData(syd, dec25SYD, (tp._1, Duration.ofDays(0)), tp._2, tp._3, tp._4)
+    ).toVector))
+    println(s"JAN-DEC weather for: ${dailyAvgs._1}\n" +
+            s"AvgTemp\t| Press  \t| Hum\t| Cond\n" + monthlyAvgs.map(dw =>
+        f"${dw._2}%1.1f   \t| ${dw._3}%1.1f \t| ${dw._4}\t| ${dw._1}\n").mkString)
   }
 
   val dailySamples = hourlyData
     .mapValues(processHourlyData[Vector[WeatherData]](_, 4, x => x))
-
-//  dailySamples.map { samples =>
-//        println(s"Daily samples for: ${samples._1} (${samples._2.size} days)")
-//        samples._2.map(dw => dw.map(println(_)))
-//      }
-//
-//  dailySamples.mapValues(allDays => allDays.toArray.map(samples =>
-//    samples.toArray.map(wd => Array(wd.temperature, wd.humidity)).transpose)).map { res =>
-//            println(s"JANUARY daily samples for: ${res._1}")
-//            res._2.map(_.map(x => println(x.toList)))
-//          }
 
   weatherNetwork.par.mapValues{ locDt =>
     val temps = (1 to 24).map(i => locDt._1.temperature(OffsetDateTime.now.plusHours(i)))

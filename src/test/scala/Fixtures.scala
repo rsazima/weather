@@ -21,6 +21,7 @@ trait LocationFixtures {
   val july12VCP = date("2016-07-12T13:15:30-03:00")
   val july12SYD = date("2016-07-12T13:15:30+10:00")
   val july12CHC = date("2016-07-12T13:15:30+12:00")
+  val july12MHV = date("2016-07-12T00:00:01-08:00")
 
   /** Current locations */
   // Pontianak has a base temp (daily mean) of 27C, but the moderating effects of
@@ -36,6 +37,7 @@ trait LocationFixtures {
   val vcp = new Location("VCP", "America/Sao_Paulo", 22.0, 12.0, -22.54, -47.03, 700)
   val syd = new Location("SYD", "Australia/Sydney", 20.0, 11.0, -33.51, 151.12, 19)
   val chc = new Location("CHC", "Pacific/Auckland", 14.0, 11.0, -43.31, 172.37, 6)
+  val mhv = Desert("MHV", "America/Los_Angeles", 11.0, 12.0, 35.00, -115.28, 100)
 
   val weatherNetwork = Map[String, Location](
       mow.code -> mow
@@ -48,6 +50,7 @@ trait LocationFixtures {
     , vcp.code -> vcp
     , syd.code -> syd
     , chc.code -> chc
+    , mhv.code -> mhv
   )
 
   // Default simulation period
